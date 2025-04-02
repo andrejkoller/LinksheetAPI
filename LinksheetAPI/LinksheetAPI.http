@@ -1,0 +1,6 @@
+@LinksheetAPI_HostAddress = http://localhost:5234
+
+GET {{LinksheetAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
