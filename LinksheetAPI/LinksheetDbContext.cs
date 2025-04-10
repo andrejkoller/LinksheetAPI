@@ -7,12 +7,14 @@ namespace LinksheetAPI
     {
         public LinksheetDbContext(DbContextOptions<LinksheetDbContext> options) : base(options) { }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<FAQ> FAQs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<FAQ>().ToTable("FAQs");
         }
 
