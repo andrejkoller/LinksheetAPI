@@ -11,6 +11,7 @@ namespace LinksheetAPI.Models
         public string Email { get; set; } = string.Empty;
         [Required]
         public string Password { get; set; } = string.Empty;
-
+        
+        public ICollection<Link>? Links { get; set; } = new List<Link>();
     }
 }
