@@ -71,5 +71,23 @@ namespace LinksheetAPI.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("put/{id}")]
+        public async Task<IActionResult> Update(int id, Link link)
+        {
+            if (CurrentUser == null)
+            {
+                return Unauthorized();
+            }
+
+            if (link == null)
+            {
+                return BadRequest("Link cannot be null");
+            }
+
+            _linkService.UpdateLink(id, link);
+
+            return NoContent();
+        }
     }
 }
