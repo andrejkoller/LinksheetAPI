@@ -15,5 +15,15 @@ namespace LinksheetAPI.Services
         {
             return _context.Users.SingleOrDefault(x => x.Id == id);
         }
+
+        public void UpdateUser(int id, User updatedUser)
+        {
+            var user = _context.Users.SingleOrDefault(x => x.Id == id) ?? throw new KeyNotFoundException($"User with ID {id} not found.");
+
+            user.Username = updatedUser.Username;
+            user.Email = updatedUser.Email;
+
+            _context.SaveChanges();
+        }
     }
 }
