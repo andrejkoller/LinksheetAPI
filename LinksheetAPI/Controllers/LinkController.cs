@@ -73,7 +73,7 @@ namespace LinksheetAPI.Controllers
         }
 
         [HttpPut("put/{id}")]
-        public async Task<IActionResult> Update(int id, Link link)
+        public IActionResult Update(int id, Link link)
         {
             if (CurrentUser == null)
             {
@@ -86,6 +86,24 @@ namespace LinksheetAPI.Controllers
             }
 
             _linkService.UpdateLink(id, link);
+
+            return NoContent();
+        }
+
+        [HttpPut("put/{id}/toggle")]
+        public IActionResult ToggleLinkVisibility(int id, Link link)
+        {
+            if (CurrentUser == null)
+            {
+                return Unauthorized();
+            }
+
+            if (link == null)
+            {
+                return BadRequest("Link cannot be null");
+            }
+
+            _linkService.UpdateLinkVisibility(id, link);
 
             return NoContent();
         }

@@ -67,5 +67,14 @@ namespace LinksheetAPI.Services
 
             _context.SaveChanges();
         }
+
+        public void UpdateLinkVisibility(int id, Link updatedLink)
+        {
+            var link = _context.Links.SingleOrDefault(x => x.Id == id) ?? throw new KeyNotFoundException($"Link with ID {id} not found.");
+
+            link.IsActive = updatedLink.IsActive;
+
+            _context.SaveChanges();
+        }
     }
 }
