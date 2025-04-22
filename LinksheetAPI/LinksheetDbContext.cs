@@ -23,6 +23,7 @@ namespace LinksheetAPI
                 .WithOne(u => u.LinkSpace)
                 .HasForeignKey<LinkSpace>(l => l.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<LinkSpace>().Property(x => x.LinkBorderRadius).HasConversion<string>();
             modelBuilder.Entity<Link>().ToTable("Links")
                 .HasOne(l => l.User)
                 .WithMany(u => u.Links)

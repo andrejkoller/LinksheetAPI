@@ -28,6 +28,22 @@ namespace LinksheetAPI.Services
         {
             var linkSpace = await _context.LinkSpaces.SingleOrDefaultAsync(x => x.UserId == userId);
 
+            if (linkSpace == null)
+            {
+                linkSpace = new LinkSpace
+                {
+                    UserId = userId,
+                    LinkPageBackgroundColor = "rgb(255,255,255)",
+                    LinkButtonColor = "rgb(0,0,0)",
+                    LinkButtonFontColor = "rgb(0,0,0)",
+                    LinkPageFontColor = "rgb(0,0,0)",
+                    LinkBorderRadius = LinkSpace.LinkBorderRadiusType.NotRounded
+                };
+
+                _context.LinkSpaces.Add(linkSpace);
+                await _context.SaveChangesAsync();
+            }
+
             return linkSpace ?? throw new KeyNotFoundException($"LinkSpace with User ID {userId} not found.");
         }
 
@@ -40,6 +56,7 @@ namespace LinksheetAPI.Services
                 LinkButtonColor = linkSpace.LinkButtonColor,
                 LinkButtonFontColor = linkSpace.LinkButtonFontColor,
                 LinkPageFontColor = linkSpace.LinkPageFontColor,
+                LinkBorderRadius = linkSpace.LinkBorderRadius,
                 UserId = linkSpace.UserId
             };
 
@@ -62,6 +79,7 @@ namespace LinksheetAPI.Services
             linkSpace.LinkButtonColor = updatedLinkSpace.LinkButtonColor;
             linkSpace.LinkButtonFontColor = updatedLinkSpace.LinkButtonFontColor;
             linkSpace.LinkPageFontColor = updatedLinkSpace.LinkPageFontColor;
+            linkSpace.LinkBorderRadius = updatedLinkSpace.LinkBorderRadius;
 
             try
             {
