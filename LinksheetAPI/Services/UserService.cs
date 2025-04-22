@@ -1,4 +1,5 @@
 ﻿using LinksheetAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinksheetAPI.Services
 {
@@ -13,7 +14,10 @@ namespace LinksheetAPI.Services
 
         public User? GetUserById(int id)
         {
-            return _context.Users.SingleOrDefault(x => x.Id == id);
+            return _context.Users
+                .Include(u => u.Links)
+                .Include(u => u.LinkSpace)
+                .SingleOrDefault(u => u.Id == id);
         }
 
         public void UpdateUser(int id, User updatedUser)

@@ -56,7 +56,7 @@ namespace LinksheetAPI.Services
             return true;
         }
 
-        public void UpdateLink(int id, Link updatedLink)
+        public async Task UpdateLink(int id, Link updatedLink)
         {
             var link = _context.Links.SingleOrDefault(x => x.Id == id) ?? throw new KeyNotFoundException($"Link with ID {id} not found.");
 
@@ -65,16 +65,30 @@ namespace LinksheetAPI.Services
             link.Description = updatedLink.Description;
             link.IsActive = updatedLink.IsActive;
 
-            _context.SaveChanges();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception("An error occurred while updating the link.", ex);
+            }
         }
 
-        public void UpdateLinkVisibility(int id, Link updatedLink)
+        public async Task UpdateLinkVisibility(int id, Link updatedLink)
         {
             var link = _context.Links.SingleOrDefault(x => x.Id == id) ?? throw new KeyNotFoundException($"Link with ID {id} not found.");
 
             link.IsActive = updatedLink.IsActive;
 
-            _context.SaveChanges();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception("An error occurred while updating the link visibility.", ex);
+            }
         }
     }
 }

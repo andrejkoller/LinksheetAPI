@@ -32,6 +32,7 @@ namespace LinksheetAPI.Controllers
             }
 
             var links = await _linkService.GetLinksByUserId(CurrentUser.Id);
+
             return links == null ? NotFound() : Ok(links);
         }
 
@@ -73,7 +74,7 @@ namespace LinksheetAPI.Controllers
         }
 
         [HttpPut("put/{id}")]
-        public IActionResult Update(int id, Link link)
+        public async Task<IActionResult> Update(int id, Link link)
         {
             if (CurrentUser == null)
             {
@@ -85,13 +86,19 @@ namespace LinksheetAPI.Controllers
                 return BadRequest("Link cannot be null");
             }
 
-            _linkService.UpdateLink(id, link);
-
-            return NoContent();
+            try
+            {
+                await _linkService.UpdateLink(id, link);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPut("put/{id}/toggle")]
-        public IActionResult ToggleLinkVisibility(int id, Link link)
+        public async Task<IActionResult> ToggleLinkVisibility(int id, Link link)
         {
             if (CurrentUser == null)
             {
@@ -103,9 +110,16 @@ namespace LinksheetAPI.Controllers
                 return BadRequest("Link cannot be null");
             }
 
-            _linkService.UpdateLinkVisibility(id, link);
+            try
+            {
+                await _linkService.UpdateLinkVisibility(id, link);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
 
-            return NoContent();
         }
     }
 }

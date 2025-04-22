@@ -18,6 +18,7 @@ namespace LinksheetAPI.Controllers
         public async Task<IActionResult> GetAll()
         {
             var faqs = await _faqService.GetAllFAQsAsync();
+
             return faqs == null ? NotFound() : Ok(faqs);
         }
     }
