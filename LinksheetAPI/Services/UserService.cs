@@ -1,4 +1,5 @@
-﻿using LinksheetAPI.Models;
+﻿using LinksheetAPI.DTOs;
+using LinksheetAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinksheetAPI.Services
@@ -10,6 +11,14 @@ namespace LinksheetAPI.Services
         public UserService(LinksheetDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<List<User>> GetAllUsers()
+        {
+            return await _context.Users
+                .Include(u => u.Links)
+                .Include(u => u.LinkSpace)
+                .ToListAsync();
         }
 
         public User? GetUserById(int id)

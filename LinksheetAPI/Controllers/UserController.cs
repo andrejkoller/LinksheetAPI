@@ -15,6 +15,14 @@ namespace LinksheetAPI.Controllers
             _userService = userService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _userService.GetAllUsers();
+
+            return users == null ? NotFound() : Ok(users);
+        }
+
         [HttpGet("current")]
         public IActionResult GetCurrentUser()
         {
