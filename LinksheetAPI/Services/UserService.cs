@@ -26,6 +26,7 @@ namespace LinksheetAPI.Services
 
             user.Username = updatedUser.Username;
             user.Email = updatedUser.Email;
+            user.Description = updatedUser.Description;
 
             _context.SaveChanges();
         }
