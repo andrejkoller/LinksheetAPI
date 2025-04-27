@@ -57,7 +57,7 @@ namespace LinksheetAPI.Services
             return true;
         }
 
-        public async Task UpdateLink(int id, Link updatedLink)
+        public async Task<Link> UpdateLink(int id, Link updatedLink)
         {
             var link = _context.Links.SingleOrDefault(x => x.Id == id) ?? throw new KeyNotFoundException($"Link with ID {id} not found.");
 
@@ -68,7 +68,9 @@ namespace LinksheetAPI.Services
 
             try
             {
+                _context.Links.Update(link);
                 await _context.SaveChangesAsync();
+                return link;
             }
             catch (DbUpdateException ex)
             {

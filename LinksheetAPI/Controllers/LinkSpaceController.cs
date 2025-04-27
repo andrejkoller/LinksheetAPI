@@ -56,22 +56,22 @@ namespace LinksheetAPI.Controllers
         }
 
         [HttpPut("put/{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] LinkSpace updatedLinkSpace)
+        public async Task<IActionResult> Update(int id, [FromBody] LinkSpace linkSpace)
         {
             if (CurrentUser == null)
             {
                 return Unauthorized();
             }
 
-            if (updatedLinkSpace == null)
+            if (linkSpace == null)
             {
                 return BadRequest("Updated LinkSpace cannot be null.");
             }
 
             try
             {
-                await _linkSpaceService.UpdateLinkSpace(id, updatedLinkSpace);
-                return NoContent();
+                var updatedLinkSpace = await _linkSpaceService.UpdateLinkSpace(id, linkSpace);
+                return updatedLinkSpace == null ? NotFound() : Ok(updatedLinkSpace);
             }
             catch (KeyNotFoundException ex)
             {

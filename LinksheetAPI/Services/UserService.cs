@@ -37,7 +37,15 @@ namespace LinksheetAPI.Services
             user.Email = updatedUser.Email;
             user.Description = updatedUser.Description;
 
-            _context.SaveChanges();
+            try
+            {
+                _context.Users.Update(user);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception("An error occurred while updating the user.", ex);
+            }
         }
     }
 }

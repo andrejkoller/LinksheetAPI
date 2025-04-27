@@ -88,8 +88,8 @@ namespace LinksheetAPI.Controllers
 
             try
             {
-                await _linkService.UpdateLink(id, link);
-                return NoContent();
+                var updatedLink = await _linkService.UpdateLink(id, link);
+                return updatedLink == null ? NotFound($"Link with ID {id} not found.") : Ok(updatedLink);
             }
             catch (KeyNotFoundException ex)
             {

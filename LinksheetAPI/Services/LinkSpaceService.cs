@@ -75,7 +75,7 @@ namespace LinksheetAPI.Services
             }
         }
 
-        public async Task UpdateLinkSpace(int id, LinkSpace updatedLinkSpace)
+        public async Task<LinkSpace> UpdateLinkSpace(int id, LinkSpace updatedLinkSpace)
         {
             var linkSpace = await _context.LinkSpaces.FindAsync(id) ?? throw new KeyNotFoundException($"LinkSpace with ID {id} not found.");
 
@@ -89,7 +89,9 @@ namespace LinksheetAPI.Services
 
             try
             {
+                _context.LinkSpaces.Update(linkSpace);
                 await _context.SaveChangesAsync();
+                return linkSpace;
             }
             catch (DbUpdateException ex)
             {
