@@ -37,7 +37,8 @@ namespace LinksheetAPI.Services
                     LinkButtonColor = "rgb(0,0,0)",
                     LinkButtonFontColor = "rgb(0,0,0)",
                     LinkPageFontColor = "rgb(0,0,0)",
-                    LinkBorderRadius = LinkSpace.LinkBorderRadiusType.NotRounded
+                    LinkBorderRadius = LinkSpace.LinkBorderRadiusType.NotRounded,
+                    LinkBorderStyle = LinkSpace.LinkBorderStyleType.Solid,
                 };
 
                 _context.LinkSpaces.Add(linkSpace);
@@ -58,6 +59,7 @@ namespace LinksheetAPI.Services
                 LinkButtonFontColor = linkSpace.LinkButtonFontColor,
                 LinkPageFontColor = linkSpace.LinkPageFontColor,
                 LinkBorderRadius = linkSpace.LinkBorderRadius,
+                LinkBorderStyle = linkSpace.LinkBorderStyle,
                 UserId = linkSpace.UserId
             };
 
@@ -83,6 +85,7 @@ namespace LinksheetAPI.Services
             linkSpace.LinkButtonFontColor = updatedLinkSpace.LinkButtonFontColor;
             linkSpace.LinkPageFontColor = updatedLinkSpace.LinkPageFontColor;
             linkSpace.LinkBorderRadius = updatedLinkSpace.LinkBorderRadius;
+            linkSpace.LinkBorderStyle = updatedLinkSpace.LinkBorderStyle;
 
             try
             {

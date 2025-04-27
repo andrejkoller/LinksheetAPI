@@ -16,6 +16,9 @@ namespace LinksheetAPI.Models
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public LinkBorderRadiusType LinkBorderRadius { get; set; } = LinkBorderRadiusType.NotRounded;
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public LinkBorderStyleType LinkBorderStyle { get; set; } = LinkBorderStyleType.Solid;
+
         public int UserId { get; set; }
         public User? User { get; set; }
 
@@ -24,6 +27,13 @@ namespace LinksheetAPI.Models
             NotRounded,
             SlightlyRounded,
             Rounded
+        }
+
+        public enum LinkBorderStyleType
+        {
+            Solid,
+            Dashed,
+            Dotted
         }
     }
 }
