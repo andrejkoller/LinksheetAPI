@@ -4,6 +4,7 @@ namespace LinksheetAPI.Models
 {
     public class User
     {
+        [Key]
         public int Id { get; set; }
         [Required, MinLength(3)]
         public string Username { get; set; } = string.Empty;

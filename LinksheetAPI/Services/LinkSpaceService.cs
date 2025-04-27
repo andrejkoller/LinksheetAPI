@@ -47,11 +47,12 @@ namespace LinksheetAPI.Services
             return linkSpace ?? throw new KeyNotFoundException($"LinkSpace with User ID {userId} not found.");
         }
 
-        public async void PostLinkSpace(LinkSpace linkSpace)
+        public async Task<LinkSpace> PostLinkSpace(LinkSpace linkSpace)
         {
             ArgumentNullException.ThrowIfNull(linkSpace);
             var linkSpaceModel = new LinkSpace
             {
+                Description = linkSpace.Description,
                 LinkPageBackgroundColor = linkSpace.LinkPageBackgroundColor,
                 LinkButtonColor = linkSpace.LinkButtonColor,
                 LinkButtonFontColor = linkSpace.LinkButtonFontColor,
@@ -64,6 +65,7 @@ namespace LinksheetAPI.Services
             {
                 await _context.LinkSpaces.AddAsync(linkSpaceModel);
                 await _context.SaveChangesAsync();
+                return linkSpaceModel;
             }
             catch (DbUpdateException ex)
             {
@@ -75,6 +77,7 @@ namespace LinksheetAPI.Services
         {
             var linkSpace = await _context.LinkSpaces.FindAsync(id) ?? throw new KeyNotFoundException($"LinkSpace with ID {id} not found.");
 
+            linkSpace.Description = updatedLinkSpace.Description;
             linkSpace.LinkPageBackgroundColor = updatedLinkSpace.LinkPageBackgroundColor;
             linkSpace.LinkButtonColor = updatedLinkSpace.LinkButtonColor;
             linkSpace.LinkButtonFontColor = updatedLinkSpace.LinkButtonFontColor;

@@ -22,7 +22,7 @@ namespace LinksheetAPI.Services
             return await _context.Links.Where(x => x.UserId == userId).ToListAsync();
         }
 
-        public async void PostLink(Link link)
+        public async Task<Link> PostLink(Link link)
         {
             ArgumentNullException.ThrowIfNull(link);
 
@@ -31,7 +31,7 @@ namespace LinksheetAPI.Services
                 Title = link.Title,
                 Url = link.Url,
                 Description = link.Description,
-                IsActive = link.IsActive = true,
+                IsActive = link.IsActive,
                 UserId = link.UserId
             };
 
@@ -39,6 +39,7 @@ namespace LinksheetAPI.Services
             {
                 await _context.Links.AddAsync(linkModel);
                 await _context.SaveChangesAsync();
+                return linkModel;
             }
             catch (DbUpdateException ex)
             {

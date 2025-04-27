@@ -1,7 +1,10 @@
-﻿namespace LinksheetAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LinksheetAPI.Models
 {
     public class Link
     {
+        [Key]
         public int Id { get; set; }
         public string? Title { get; set; }
         public string? Url { get; set; }

@@ -50,9 +50,9 @@ namespace LinksheetAPI.Controllers
             }
 
             linkSpace.UserId = CurrentUser.Id;
-            _linkSpaceService.PostLinkSpace(linkSpace);
+            var createdLinkSpace = _linkSpaceService.PostLinkSpace(linkSpace);
 
-            return CreatedAtAction(nameof(GetCurrentUserLinkSpace), new { id = linkSpace.Id }, linkSpace);
+            return CreatedAtAction(nameof(GetCurrentUserLinkSpace), new { id = createdLinkSpace.Id }, createdLinkSpace);
         }
 
         [HttpPut("put/{id}")]

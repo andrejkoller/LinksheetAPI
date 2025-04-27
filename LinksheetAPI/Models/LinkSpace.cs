@@ -1,10 +1,13 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace LinksheetAPI.Models
 {
     public class LinkSpace
     {
+        [Key]
         public int Id { get; set; }
+        public string? Description { get; set; }
         public string? LinkPageBackgroundColor { get; set; }
         public string? LinkButtonColor { get; set; }
         public string? LinkButtonFontColor { get; set; }

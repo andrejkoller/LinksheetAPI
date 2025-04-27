@@ -37,7 +37,7 @@ namespace LinksheetAPI.Controllers
         }
 
         [HttpPost("post")]
-        public IActionResult Post([FromBody] Link link)
+        public async Task<IActionResult> Post([FromBody] Link link)
         {
             if (CurrentUser == null)
             {
@@ -50,9 +50,9 @@ namespace LinksheetAPI.Controllers
             }
 
             link.UserId = CurrentUser.Id;
-            _linkService.PostLink(link);
+            var createdLink = await _linkService.PostLink(link);
 
-            return CreatedAtAction(nameof(GetAllLinks), new { id = link.Id }, link);
+            return CreatedAtAction(nameof(GetAllLinks), new { id = createdLink.Id }, createdLink);
         }
 
         [HttpDelete("delete/{id}")]
