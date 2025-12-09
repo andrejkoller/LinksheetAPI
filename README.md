@@ -55,3 +55,7 @@ dotnet run --project LinksheetAPI
 ```
 
 The API will be available at `https://localhost:7187` or `http://localhost:5234`.
+
+## 🔗 Related
+
+- Frontend Repository: [linksheet-frontend](https://github.com/andrejkoller/linksheet-frontend)
